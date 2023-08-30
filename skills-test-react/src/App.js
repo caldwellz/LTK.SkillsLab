@@ -4,27 +4,18 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import AccountMenu from './AccountMenu';
-import BasicForm from './BasicForm';
+import Home from './routes/home';
+import Todo from './routes/todo';
+import { Route, Routes } from 'react-router-dom';
 
 export default function App() {
-  const [openForm, setOpenForm] = React.useState(false);
-  const handleOnClick = (page) => {
-    console.log('open');
-    if (!openForm) {
-      setOpenForm(true);
-    } else {
-      setOpenForm(false);
-    }
-  };
   return (
     <Container maxWidth="sm">
-      <AccountMenu onClick={handleOnClick} />
-      {openForm && <BasicForm />}
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          React Skills Test
-        </Typography>
-      </Box>
+      <AccountMenu />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/todo" element={<Todo />}></Route>
+      </Routes>
     </Container>
   );
 }

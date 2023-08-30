@@ -8,6 +8,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
+import { Link } from 'react-router-dom';
 
 export default function AccountMenu({ onClick }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,6 +22,9 @@ export default function AccountMenu({ onClick }) {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        <Link to="/">
+          <Typography sx={{ minWidth: 100 }}>Home</Typography>
+        </Link>
         <Typography sx={{ minWidth: 100 }}>Contact</Typography>
         <Typography sx={{ minWidth: 100 }}>Profile</Typography>
         <Tooltip title="Account settings">
@@ -70,7 +74,9 @@ export default function AccountMenu({ onClick }) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
         <MenuItem onClick={onClick}>
-          <Avatar /> Open Form
+          <Link to="/todo">
+            <Avatar /> Open Form
+          </Link>
         </MenuItem>
       </Menu>
     </React.Fragment>
