@@ -6,6 +6,7 @@ const {
   ScanCommand,
   QueryCommand,
   UpdateItemCommand,
+  DeleteItemCommand,
 } = require('@aws-sdk/client-dynamodb');
 const { marshall, unmarshall } = require('@aws-sdk/util-dynamodb');
 
@@ -120,7 +121,7 @@ async function updateLoanBorrower(loanId, pairId, updates) {
     updateExpressions.push(`#${field} = :${field}`);
   }
   const UpdateExpression = 'SET ' + updateExpressions.join(', ');
-  const res = await db.send(
+  await db.send(
     new UpdateItemCommand({
       Key: marshall({ loanId, pairId }),
       ExpressionAttributeNames: attributeNames,
@@ -132,9 +133,20 @@ async function updateLoanBorrower(loanId, pairId, updates) {
   return await getLoan(loanId);
 }
 
+async function removeLoanBorrower(loanId, pairId) {
+  await db.send(
+    new DeleteItemCommand({
+      Key: marshall({ loanId, pairId }),
+      TableName,
+    })
+  );
+  return await getLoan(loanId);
+}
+
 module.exports = {
   getAllLoans,
   getLoan,
   putLoan,
   updateLoanBorrower,
+  removeLoanBorrower,
 };
