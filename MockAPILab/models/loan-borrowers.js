@@ -143,10 +143,27 @@ async function removeLoanBorrower(loanId, pairId) {
   return await getLoan(loanId);
 }
 
+async function removeLoan(loanId) {
+  const loan = await getLoan(loanId);
+  if (!loan) return false;
+
+  const pairs = [];
+  for (const borrower of loan.borrowers) {
+    pairs.push([loanId, borrower.pairId]);
+  }
+
+  const successes = await Promise.allSettled(pairs.map((pair) => removeLoanBorrower(...pair)));
+  if (successes.find((result) => result.status === 'rejected')) {
+    return false;
+  }
+  return true;
+}
+
 module.exports = {
   getAllLoans,
   getLoan,
   putLoan,
   updateLoanBorrower,
   removeLoanBorrower,
+  removeLoan,
 };

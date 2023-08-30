@@ -6,6 +6,7 @@ const {
   getLoan,
   updateLoanBorrower,
   removeLoanBorrower,
+  removeLoan,
 } = require('../../models/loan-borrowers');
 const router = express.Router();
 
@@ -124,7 +125,18 @@ router.delete(
 // Step 9 - DELETE method that deletes a loan object based on loanId
 router.delete(
   '/:loanId',
-  useAsyncHandler(async (req, res) => {})
+  useAsyncHandler(async (req, res) => {
+    const { loanId: rawLoanId, pairId: rawPairId } = req.params;
+    const loanId = Number(rawLoanId);
+    if (isNaN(loanId)) {
+      sendStatus(res, 400, 'Invalid loanId');
+      return;
+    }
+    if (!(await removeLoan(loanId))) {
+      throw new Error(`Failed to remove loanId ${loanId}`);
+    }
+    sendStatus(res, 200, 'Success');
+  })
 );
 
 module.exports = router;
