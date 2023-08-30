@@ -16,6 +16,10 @@ const TableName = 'LoanBorrowers';
 const db = new DynamoDBClient({
   endpoint: isLocal ? `http://localhost:${localDynamoPort}` : '...',
   region: isLocal ? 'local-env' : '...',
+  credentials: {
+    accessKeyId: isLocal ? 'fakeKeyId' : '...',
+    secretAccessKey: isLocal ? 'fakeAccessKey' : '...',
+  },
   maxAttempts: isLocal ? 1 : 3,
 });
 
