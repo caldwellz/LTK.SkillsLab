@@ -1,7 +1,6 @@
 import React from 'react';
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { todoAdded, todoRemoved, todoToggled } from '../features/todoSlice';
 import TodoItem from './TodoItem';
 
 export default function TodoList() {
@@ -16,10 +15,12 @@ export default function TodoList() {
       <Grid item xs>
         Done?
       </Grid>
-      <Grid item xs>
+      <Grid item xs={6}>
         Title
       </Grid>
-      <Grid item xs></Grid>
+      <Grid item xs>
+        Remove
+      </Grid>
       {todos.map((item, index) => {
         return <TodoItem key={index} item={item} />;
       })}

@@ -3,7 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { Alert, Button, FormLabel, Grid } from '@mui/material';
 import { v4 as uuid } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
-import { todoAdded, todoRemoved, todoToggled } from '../features/todoSlice';
+import { todoAdded } from '../features/todoSlice';
 
 export default function TodoForm() {
   const todos = useSelector((state) => state.todos);
@@ -21,7 +21,6 @@ export default function TodoForm() {
       onSubmit={({ title }, { setSubmitting }) => {
         const todoItem = { id: uuid(), createdAt: Date.now(), title };
         addTodo(todoItem);
-        console.log(todos);
         setSubmitting(false);
       }}>
       {({ errors, isSubmitting }) => (

@@ -21,12 +21,13 @@ export default function AccountMenu({ onClick }) {
   };
   return (
     <React.Fragment>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', textAlign: 'center' }}>
         <Link to="/">
           <Typography sx={{ minWidth: 100 }}>Home</Typography>
         </Link>
         <Typography sx={{ minWidth: 100 }}>Contact</Typography>
         <Typography sx={{ minWidth: 100 }}>Profile</Typography>
+        <Box sx={{ flexGrow: 1 }} />
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
